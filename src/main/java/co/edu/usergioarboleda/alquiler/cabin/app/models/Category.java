@@ -32,9 +32,9 @@ public class Category implements Serializable {
     private Integer id;
     private String name;
     private String description;
-    
+
     @OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = "category")
-    @JsonIgnoreProperties("category")
+    @JsonIgnoreProperties(value = { "category" })
     private List<Cabin> cabins;
-    
+
 }

@@ -1,12 +1,15 @@
 package co.edu.usergioarboleda.alquiler.cabin.app.models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,7 +32,7 @@ public class Cabin implements Serializable {
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Integer id;
-    private String name;    
+    private String name;
     private String brand;
     private Integer rooms;
     private String description;
@@ -39,4 +42,11 @@ public class Cabin implements Serializable {
     @JsonIgnoreProperties("cabins")
     private Category category;
 
+    @OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = "cabin")
+    @JsonIgnoreProperties({ "cabin", "client" })
+    private List<Message> messages;
+
+    @OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = "cabin")
+    @JsonIgnoreProperties({ "cabin", "message" })
+    private List<Reservation> reservations;
 }
