@@ -29,7 +29,7 @@ public class Cabin implements Serializable {
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Integer id;
-    private String name;
+    private String name;    
     private String brand;
     private Integer rooms;
     private String description;
@@ -38,4 +38,5 @@ public class Cabin implements Serializable {
     @JoinColumn(name = "categoryId")
     @JsonIgnoreProperties("cabins")
     private Category category;
+
 }
