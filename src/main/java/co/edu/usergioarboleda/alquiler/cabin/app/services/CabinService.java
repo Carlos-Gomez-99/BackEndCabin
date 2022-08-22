@@ -29,7 +29,7 @@ public class CabinService {
             if (repository.findById(cabin.getId()) == null) {
                 return repository.save(cabin);
             } else {
-                return null;
+                return cabin;
             }
         }
     }

@@ -33,18 +33,18 @@ public class Reservation implements Serializable {
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Integer idReservation;
     private Date startDate;
-    private String reservationTime;
     private Date devolutionDate;
-
-    @ManyToOne
-    @JoinColumn(name = "clientId")
-    @JsonIgnoreProperties(value = { "reservations" })
-    private Client client;
+    private String status = "created";
 
     @ManyToOne
     @JoinColumn(name = "cabinId")
     @JsonIgnoreProperties(value = { "reservations" })
     private Cabin cabin;
+
+    @ManyToOne
+    @JoinColumn(name = "clientId")
+    @JsonIgnoreProperties(value = { "reservations" })
+    private Client client;
 
     @OneToOne(cascade = { CascadeType.PERSIST }, mappedBy = "reservation")
     @JsonIgnoreProperties(value = "reservation")

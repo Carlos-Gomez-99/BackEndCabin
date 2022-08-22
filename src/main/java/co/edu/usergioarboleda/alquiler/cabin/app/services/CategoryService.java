@@ -29,7 +29,7 @@ public class CategoryService {
             if (repository.findById(category.getId()) == null) {
                 return repository.save(category);
             } else {
-                return null;
+                return category;
             }
         }
     }
