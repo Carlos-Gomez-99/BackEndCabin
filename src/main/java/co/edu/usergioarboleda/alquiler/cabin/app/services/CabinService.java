@@ -50,6 +50,9 @@ public class CabinService {
                 if (cabin.getRooms() != null) {
                     newCabin.setRooms(cabin.getRooms());
                 }
+                if(cabin.getDescription() != null){
+                    newCabin.setDescription(cabin.getDescription());
+                }
                 return repository.save(newCabin);
             } else {
                 return cabin;

@@ -47,6 +47,9 @@ public class ClientService {
                 if (client.getPassword() != null) {
                     newClient.setPassword(client.getPassword());
                 }
+                if(client.getAge()!=null){
+                    newClient.setAge(client.getAge());
+                }
                 return repository.save(newClient);
             } else {
                 return client;

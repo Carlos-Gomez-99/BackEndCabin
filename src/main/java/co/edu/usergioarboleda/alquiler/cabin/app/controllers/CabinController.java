@@ -29,6 +29,12 @@ public class CabinController {
         return service.getAll();
     }
 
+    @RequestMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Cabin getById(@PathVariable("id") Integer id) {
+        return service.getById(id);
+    }
+
     @PostMapping(value = "/save")
     @ResponseStatus(code = HttpStatus.CREATED)
     public Cabin save(@RequestBody Cabin cabin) {
