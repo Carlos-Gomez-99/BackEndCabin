@@ -25,4 +25,7 @@ public class Admin implements Serializable {
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Integer idAdmin;
+    private String nombre;
+    private String correo;
+    private String contrasena;
 }

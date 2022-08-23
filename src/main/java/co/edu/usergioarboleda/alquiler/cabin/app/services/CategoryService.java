@@ -10,7 +10,7 @@ import co.edu.usergioarboleda.alquiler.cabin.app.repository.CategoryRepository;
 
 @Service
 public class CategoryService {
-    
+
     @Autowired
     private CategoryRepository repository;
 
@@ -55,5 +55,9 @@ public class CategoryService {
 
     public void delete(Category category) {
         repository.delete(category);
+    }
+
+    public void deleteById(Integer id) {
+        repository.deleteById(id);
     }
 }

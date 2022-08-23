@@ -29,8 +29,38 @@ public class ReservationService {
             if (repository.findById(reservation.getIdReservation()) == null) {
                 return repository.save(reservation);
             } else {
-                return null;
+                return reservation;
             }
         }
+    }
+
+    public Reservation update(Reservation reservation) {
+        if (reservation.getIdReservation() != null) {
+            Reservation newReservation = repository.findById(reservation.getIdReservation());
+            if (newReservation != null) {
+                if (reservation.getStartDate() != null) {
+                    newReservation.setStartDate(reservation.getStartDate());
+                }
+                if (reservation.getDevolutionDate() != null) {
+                    newReservation.setDevolutionDate(reservation.getDevolutionDate());
+                }
+                if (reservation.getStatus() != null) {
+                    newReservation.setStatus(reservation.getStatus());
+                }
+                return repository.save(newReservation);
+            } else {
+                return reservation;
+            }
+        } else {
+            return reservation;
+        }
+    }
+
+    public void delete(Reservation reservation) {
+        repository.delete(reservation);
+    }
+
+    public void deleteById(Integer id) {
+        repository.deleteById(id);
     }
 }

@@ -28,4 +28,8 @@ public class CategoryRepository {
     public void delete(Category category) {
         repository.delete(category);
     }
+
+    public void deleteById(Integer id) {
+        repository.deleteById(id);
+    }
 }

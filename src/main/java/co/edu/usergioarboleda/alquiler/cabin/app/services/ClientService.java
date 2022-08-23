@@ -29,8 +29,38 @@ public class ClientService {
             if (repository.findById(client.getIdClient()) == null) {
                 return repository.save(client);
             } else {
-                return null;
+                return client;
             }
         }
+    }
+
+    public Client update(Client client) {
+        if (client.getIdClient() != null) {
+            Client newClient = repository.findById(client.getIdClient());
+            if (newClient != null) {
+                if (client.getName() != null) {
+                    newClient.setName(client.getName());
+                }
+                if (client.getEmail() != null) {
+                    newClient.setEmail(client.getEmail());
+                }
+                if (client.getPassword() != null) {
+                    newClient.setPassword(client.getPassword());
+                }
+                return repository.save(newClient);
+            } else {
+                return client;
+            }
+        } else {
+            return client;
+        }
+    }
+
+    public void delete(Client client) {
+        repository.delete(client);
+    }
+
+    public void deleteById(Integer id) {
+        repository.deleteById(id);
     }
 }
