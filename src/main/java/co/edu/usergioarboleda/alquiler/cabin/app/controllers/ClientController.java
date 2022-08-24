@@ -30,6 +30,12 @@ public class ClientController {
         return service.getAll();
     }
 
+    @RequestMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Client getById(@PathVariable("id") Integer id) {
+        return service.getById(id);
+    }
+
     @PostMapping(value = "/save")
     @ResponseStatus(code = HttpStatus.CREATED)
     public Client save(@RequestBody Client client) {
