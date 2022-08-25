@@ -41,14 +41,12 @@ public class ScoreController {
         return service.save(score);
     }
 
-    /*
-     * @PutMapping("/update")
-     * 
-     * @ResponseStatus(code = org.springframework.http.HttpStatus.CREATED)
-     * public Score update(@RequestBody Score score) {
-     * return service.update(score);
-     * }
-     */
+    @PutMapping("/update")
+    @ResponseStatus(code = org.springframework.http.HttpStatus.CREATED)
+    public Score update(@RequestBody Score score) {
+        return service.update(score);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(code = org.springframework.http.HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Integer id) {
