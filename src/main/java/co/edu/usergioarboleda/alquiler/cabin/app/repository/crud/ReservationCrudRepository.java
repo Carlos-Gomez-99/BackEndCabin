@@ -10,13 +10,16 @@ import co.edu.usergioarboleda.alquiler.cabin.app.models.Reservation;
 
 public interface ReservationCrudRepository extends CrudRepository<Reservation, Integer> {
 
-    public List<Reservation> findAllByStartDateAfterAndStartDateBefore(Date startDate, Date endDate);
+    // SELECT * FROM reservation WHERE startDate > ? and endDate < ?
+    public List<Reservation> findAllByStartDateAfterAndDevolutionDateBefore(Date startDate, Date devolutionDate);
+    // public List<Reservation> findAllByStartDateAfterAndStartDateBefore(Date //
+    // startDate, Date endDate);
 
-    @Query(value = "SELECT c.client, count(c.client) as total FROM reservation c GROUP BY c.client ORDER BY total DESC", nativeQuery = true)
+    @Query(value = "SELECT c.client_id, count(c.client_id) as total FROM reservation c GROUP BY c.client_id ORDER BY total DESC", nativeQuery = true)
     public List<Object[]> countTotalReservationByClient();
 
     public List<Reservation> findAllByStatus(String status);
 
-    @Query(value = "SELECT c.cabin, count(c.cabin) as total FROM reservation c GROUP BY c.cabin ORDER BY total DESC", nativeQuery = true)
+    @Query(value = "SELECT c.cabin_id, count(c.cabin_id) as total FROM reservation c GROUP BY c.cabin_id ORDER BY total DESC", nativeQuery = true)
     public List<Object[]> countTotalReservationByCabin();
 }

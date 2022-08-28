@@ -1,6 +1,7 @@
 package co.edu.usergioarboleda.alquiler.cabin.app.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,9 +19,15 @@ public class ScoreRepository {
         return (List<Score>) repository.findAll();
     }
 
-    public Score findById(Integer id) {
-        return repository.findById(id).orElse(null);
+    public Optional<Score> findById(Integer id) {
+        return repository.findById(id);
     }
+    /* Another implementation for findByid would be the following */
+    /*
+     * public Score findById(Integer id) {
+     * return repository.findById(id).orElse(null);
+     * }
+     */
 
     public Score save(Score score) {
         return repository.save(score);
@@ -28,9 +35,5 @@ public class ScoreRepository {
 
     public void delete(Score score) {
         repository.delete(score);
-    }
-
-    public void deleteById(Integer id) {
-        repository.deleteById(id);
     }
 }

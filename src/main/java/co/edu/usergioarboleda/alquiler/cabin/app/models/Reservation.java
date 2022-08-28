@@ -38,15 +38,21 @@ public class Reservation implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cabinId")
-    @JsonIgnoreProperties(value = { "reservations" })
+    @JsonIgnoreProperties("reservations")
     private Cabin cabin;
 
     @ManyToOne
     @JoinColumn(name = "clientId")
-    @JsonIgnoreProperties(value = { "reservations", "messages" })
+    @JsonIgnoreProperties({ "reservations", "messages" })
     private Client client;
 
-    @OneToOne(cascade = { CascadeType.PERSIST }, mappedBy = "reservation")
-    @JsonIgnoreProperties(value = "reservation")
+    /*
+     * @OneToOne(cascade = { CascadeType.PERSIST }, mappedBy = "reservation")
+     * 
+     * @JsonIgnoreProperties(value = "reservation")
+     * private Score score;
+     */
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reservation")
+    @JsonIgnoreProperties({ "reservations" })
     private Score score;
 }

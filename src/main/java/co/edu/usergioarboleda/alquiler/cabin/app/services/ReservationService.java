@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ReservationService {
         return repository.findAll();
     }
 
-    public Reservation getById(Integer id) {
+    public Optional<Reservation> getById(Integer id) {
         return repository.findById(id);
     }
 
@@ -34,6 +35,7 @@ public class ReservationService {
             if (repository.findById(reservation.getIdReservation()) == null) {
                 return repository.save(reservation);
             } else {
+                // throw new RuntimeException("Reservation not found");
                 return reservation;
             }
         }
@@ -41,32 +43,46 @@ public class ReservationService {
 
     public Reservation update(Reservation reservation) {
         if (reservation.getIdReservation() != null) {
-            Reservation newReservation = repository.findById(reservation.getIdReservation());
-            if (newReservation != null) {
+            Optional<Reservation> optionalReservation = repository.findById(reservation.getIdReservation());
+            if (optionalReservation.isPresent()) {
                 if (reservation.getStartDate() != null) {
-                    newReservation.setStartDate(reservation.getStartDate());
+                    optionalReservation.get().setStartDate(reservation.getStartDate());
                 }
                 if (reservation.getDevolutionDate() != null) {
-                    newReservation.setDevolutionDate(reservation.getDevolutionDate());
+                    optionalReservation.get().setDevolutionDate(reservation.getDevolutionDate());
                 }
-                if (reservation.getStatus() != null) {
-                    newReservation.setStatus(reservation.getStatus());
-                }
-                return repository.save(newReservation);
+                return repository.save(optionalReservation.get());
             } else {
+                // throw new RuntimeException("Reservation not found");
                 return reservation;
             }
         } else {
+            // throw new RuntimeException("Reservation not found");
             return reservation;
         }
     }
 
-    public void delete(Reservation reservation) {
-        repository.delete(reservation);
+    public void deleteAll(Reservation reservation) {
+        if (reservation.getIdReservation() != null) {
+            Optional<Reservation> optionalReservation = repository.findById(reservation.getIdReservation());
+            if (optionalReservation.isPresent()) {
+                repository.delete(reservation);
+            } else {
+                // throw new RuntimeException("Reservation not found");
+            }
+        } else {
+            // throw new RuntimeException("Reservation not found");
+        }
+
     }
 
     public void deleteById(Integer id) {
-        repository.deleteById(id);
+        Optional<Reservation> optionalReservation = repository.findById(id);
+        if (optionalReservation.isPresent()) {
+            repository.delete(optionalReservation.get());
+        } else {
+            // throw new RuntimeException("Reservation not found");
+        }
     }
 
     public List<Reservation> getReportDates(String fechaInicial, String fechaFinal) {
@@ -88,6 +104,11 @@ public class ReservationService {
         }
     }
 
+    /**
+     * Metodo que devuelve el top de clientes que mas reservaron
+     * 
+     * @return List<CountClient> respuesta
+     */
     public List<CountClient> getTopClients() {
         return repository.findTopClients();
     }
